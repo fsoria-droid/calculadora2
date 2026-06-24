@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Calculadora</title>
+<!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Fuente  (Estilo Bancario Moderno) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Iconos (FontAwesome) para ilustrar las categorías -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Mis Estilos -->
+     <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+     <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"> Campus Finanza</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Menú Desktop -->
+            <div class="collapse navbar-collapse" id="navbarNavDesktop">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index1.html">Calculadora</a></li>
+                    <!-- ¡ENLACE ACTUALIZADO! -->
+                    
+                    <li class="nav-item"><a class="nav-link" href="#">Ahorro</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- OFFCANVAS MÓVIL -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasMenuLabel">MENÚ FINANCIERO</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item"><a class="nav-link active" href="index1.html" data-bs-dismiss="offcanvas">Calculadora</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-bs-dismiss="offcanvas">Contáctanos</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container my-5 content-wrapper">
+        <div class="text-center mb-5">
+            <h1 class="main-title">Calculadora de presupuesto universitario</h1>
+            <p class="lead text-muted">
+                Organiza tus gastos como estudiante: 50% Necesidades, 30% Gustos, 20% Ahorro.
+            </p>
+        </div>
+
+        <div class="calculator-card shadow-lg">
+            
+            <!-- SECCIÓN 1: ENTRADA DE DATOS -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-8 col-lg-6">
+                    <label for="netIncome" class="form-label fw-bold">¿Cuánto recibes al mes como estudiante?</label>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text bg-light">$</span>
+                        <input type="number" class="form-control" id="netIncome" placeholder="Ej: 3000 (beca, apoyo, trabajo)">
+                    </div>
+                    <div class="d-grid gap-2 mt-4">
+                        <button class="btn btn-calculate btn-lg" onclick="calculateBudget()">
+                            Calcular mi presupuesto
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: RESULTADOS -->
+            <div id="resultsSection" class="d-none animate-fade-in">
+                <hr class="my-5">
+                
+                <h3 class="text-center mb-4" style="color: var(--color-primary);">
+                    Así deberías distribuir tu dinero como estudiante:
+                </h3>
+
+                <div class="chart-container mb-5">
+                    <div class="pie-chart" id="budgetChart"></div>
+                </div>
+
+                <div class="row g-4">
+                    
+                    <!-- 50% NECESIDADES -->
+                    <div class="col-12 col-md-4">
+                        <div class="card h-100 result-card border-needs">
+                            <div class="card-body text-center">
+                                <div class="icon-circle bg-needs mb-3">
+                                    <i class="fa-solid fa-house"></i>
+                                </div>
+                                <h5 class="card-title text-needs">50% Necesidades</h5>
+                                <p class="display-6 fw-bold" id="valNeeds">$0</p>
+                                <p class="card-text small text-muted">
+                                    Transporte, comida, materiales escolares, servicios básicos.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 30% GUSTOS -->
+                    <div class="col-12 col-md-4">
+                        <div class="card h-100 result-card border-wants">
+                            <div class="card-body text-center">
+                                <div class="icon-circle bg-wants mb-3">
+                                    <i class="fa-solid fa-gamepad"></i>
+                                </div>
+                                <h5 class="card-title text-wants">30% Gustos</h5>
+                                <p class="display-6 fw-bold" id="valWants">$0</p>
+                                <p class="card-text small text-muted">
+                                    Salidas, hobbies, ropa, maquillaje, streaming.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 20% AHORRO -->
+                    <div class="col-12 col-md-4">
+                        <div class="card h-100 result-card border-savings">
+                            <div class="card-body text-center">
+                                <div class="icon-circle bg-savings mb-3">
+                                    <i class="fa-solid fa-piggy-bank"></i>
+                                </div>
+                                <h5 class="card-title text-savings">20% Ahorro</h5>
+                                <p class="display-6 fw-bold" id="valSavings">$0</p>
+                                <p class="card-text small text-muted">
+                                    Fondo para imprevistos, viajes, metas personales.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+   
+   
+ <footer id="main-footer">
+   <p>Author: Frida Soria </p><p><a href="correo:f.soria@ebc.edu.mx">f.soria@ebc.edu.mx</a></p>
+    
+    <div class="social">
+   <a href="#"><i class="fab fa-facebook"> </i>
+   <a href="#"><i class="fab fa-instagram"> </i>
+   <a href="#"><i class="fab fa-linkedin"> </i>
+  </a>
+    </div>
+     
+   </footer>
+    
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+
+
+</body>
+</html>
